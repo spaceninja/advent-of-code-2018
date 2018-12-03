@@ -1,6 +1,6 @@
-import input from "./input";
+import input from './input';
 
-const testcase = ["abcdef", "bababc", "abbcde", "abcccd", "aabcdd", "abcdee", "ababab"];
+const testcase = ['abcdef', 'bababc', 'abbcde', 'abcccd', 'aabcdd', 'abcdee', 'ababab'];
 
 // Rejected first attempt
 // tried to solve with regex, by sorting the letters
@@ -12,9 +12,9 @@ const checkWithRegex = array => {
 
   array.forEach(string => {
     const sortedString = string
-      .split("")
+      .split('')
       .sort()
-      .join("");
+      .join('');
     console.log(sortedString);
     if (sortedString.match(/(.)\1{2}/g)) {
       threeDups += 1;
@@ -28,7 +28,8 @@ const checkWithRegex = array => {
 };
 
 //
-// This one's better. Gotta get in the habit of looking at .reduce and .map more
+// This one's better.
+// Gotta get in the habit of looking at .reduce and .map more
 //
 const checkForDuplicates = array => {
   // running total of doubles and thruples
@@ -37,33 +38,24 @@ const checkForDuplicates = array => {
 
   // loop over each string in the array
   array.forEach(string => {
-    // start with none
     let hasTwo = false;
     let hasThree = false;
 
     // make an object with a count of each letter in this string
-    let letterCount = string.split("").reduce((acc, c) => {
-      acc[c] = acc[c] ? acc[c] + 1 : 1;
+    let letterCount = string.split('').reduce((acc, char) => {
+      acc[char] = acc[char] ? acc[char] + 1 : 1;
       return acc;
     }, {});
 
     // check letter count object for doubles and thruples
     for (let letter in letterCount) {
-      if (letterCount[letter] === 2) {
-        hasTwo = true;
-      }
-      if (letterCount[letter] === 3) {
-        hasThree = true;
-      }
+      if (letterCount[letter] === 2) hasTwo = true;
+      if (letterCount[letter] === 3) hasThree = true;
     }
 
     // update the running totals
-    if (hasTwo) {
-      twoCount += 1;
-    }
-    if (hasThree) {
-      threeCount += 1;
-    }
+    if (hasTwo) twoCount += 1;
+    if (hasThree) threeCount += 1;
   });
 
   const checksum = twoCount * threeCount;
